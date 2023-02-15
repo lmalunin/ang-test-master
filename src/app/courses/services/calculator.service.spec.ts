@@ -1,10 +1,17 @@
+import { CalculatorService } from "./calculator.service";
+import { LoggerService } from "./logger.service";
+
 describe('CalculatorService', ()=>{
 
     it('should be two numbers', ()=>{
-        pending();
+        const calculatorService = new CalculatorService(new LoggerService());
+        const result = calculatorService.add(2,2);
+        expect(result).toBe(4);
     });
 
     it('should subtract two numbers', ()=>{
-        pending();
+        const calculatorService = new CalculatorService(new LoggerService());
+        const result = calculatorService.subtract(2,2);
+        expect(result).toBe(0);
     });
 })
