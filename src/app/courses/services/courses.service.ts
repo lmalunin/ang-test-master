@@ -22,7 +22,7 @@ export class CoursesService {
     findAllCourses(): Observable<Course[]> {
         return this.http.get('/api/courses')
             .pipe(
-                map(res => res['payload'])
+                map(res => (<any>res)['payload'])
             );
     }
 
@@ -43,7 +43,7 @@ export class CoursesService {
                 .set('pageNumber', pageNumber.toString())
                 .set('pageSize', pageSize.toString())
         }).pipe(
-            map(res =>  res["payload"])
+            map(res =>  (<any>res)["payload"])
         );
     }
 
