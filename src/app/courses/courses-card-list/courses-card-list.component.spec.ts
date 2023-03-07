@@ -16,17 +16,25 @@ import {setupCourses} from '../common/setup-test-data';
 
 describe('CoursesCardListComponent', () => {
 
-    beforeEach(_ => {
+    let component: CoursesCardListComponent;
+    let fixture: ComponentFixture<CoursesCardListComponent>;
+
+    beforeEach(async (() => {
         TestBed.configureTestingModule({
             imports:[
                 CoursesModule,
             ]
-        });
-    })
+        })
+            .compileComponents()
+            .then(()=>{
+                fixture = TestBed.createComponent(CoursesCardListComponent);
+                component = fixture.componentInstance;
+            });
+    }));
 
   it("should create the component", () => {
 
-   pending();
+   expect(component).toBeTruthy();
 
   });
 
