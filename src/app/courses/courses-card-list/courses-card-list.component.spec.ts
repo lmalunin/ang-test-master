@@ -1,4 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { MatButtonModule } from "@angular/material/button";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { AppRoutingModule } from "../../app-routing.module";
 import {CoursesCardListComponent} from './courses-card-list.component';
 import {CoursesModule} from '../courses.module';
 import {COURSES} from '../../../../server/db-data';
@@ -13,6 +16,13 @@ import {setupCourses} from '../common/setup-test-data';
 
 describe('CoursesCardListComponent', () => {
 
+    beforeEach(_ => {
+        TestBed.configureTestingModule({
+            imports:[
+                CoursesModule,
+            ]
+        });
+    })
 
   it("should create the component", () => {
 
