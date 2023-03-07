@@ -17,63 +17,73 @@ import { click } from '../common/test-utils';
 
 describe('HomeComponent', () => {
 
-  let fixture: ComponentFixture<HomeComponent>;
-  let component: HomeComponent;
-  let el: DebugElement;
+    let fixture: ComponentFixture<HomeComponent>;
+    let component: HomeComponent;
+    let el: DebugElement;
+    let coursesService: any;
 
-  beforeEach(async(() => {
+    const beginnerCourses = setupCourses()
+        .filter(course => course.category == 'BEGINNER')
 
-    const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses']);
+    beforeEach(async(() => {
 
-    TestBed.configureTestingModule({
-      imports: [
-        CoursesModule,
-        NoopAnimationsModule
-      ],
-      providers: [
-        { provide: CoursesService, useValue: coursesServiceSpy }
-      ]
-    }).compileComponents().then(value => {
-      fixture = TestBed.createComponent(HomeComponent);
-      component = fixture.componentInstance;
-      el = fixture.debugElement;
+        const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses']);
+
+        TestBed.configureTestingModule({
+            imports: [
+                CoursesModule,
+                NoopAnimationsModule
+            ],
+            providers: [
+                { provide: CoursesService, useValue: coursesServiceSpy }
+            ]
+        }).compileComponents().then(value => {
+            fixture = TestBed.createComponent(HomeComponent);
+            component = fixture.componentInstance;
+            el = fixture.debugElement;
+            coursesService = TestBed.get(CoursesService);
+        });
+
+    }));
+
+    it("should create the component", () => {
+
+        expect(component).toBeTruthy();
+
     });
 
-  }));
 
-  it("should create the component", () => {
+    it("should display only beginner courses", () => {
 
-    expect(component).toBeTruthy();
+        coursesService.findAllCourses.and.returnValue(of(beginnerCourses));
 
-  });
+        fixture.detectChanges();
 
+        const tabs = el.queryAll(By.css('.mdc-tab'));
+        expect(tabs.length).toBe(1, 'Unexpected number of tabs found');
 
-  it("should display only beginner courses", () => {
-
-    pending();
-
-  });
+    });
 
 
-  it("should display only advanced courses", () => {
+    it("should display only advanced courses", () => {
 
-    pending();
+        pending();
 
-  });
-
-
-  it("should display both tabs", () => {
-
-    pending();
-
-  });
+    });
 
 
-  it("should display advanced courses when tab clicked", () => {
+    it("should display both tabs", () => {
 
-    pending();
+        pending();
 
-  });
+    });
+
+
+    it("should display advanced courses when tab clicked", () => {
+
+        pending();
+
+    });
 
 });
 
