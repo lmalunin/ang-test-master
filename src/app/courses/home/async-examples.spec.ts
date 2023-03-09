@@ -1,4 +1,4 @@
-import { fakeAsync, flush, tick } from "@angular/core/testing";
+import { fakeAsync, flush, flushMicrotasks, tick } from "@angular/core/testing";
 
 fdescribe('Async Testing Examples', () => {
 
@@ -36,7 +36,7 @@ fdescribe('Async Testing Examples', () => {
         expect(test).toBeTruthy();
     }));
 
-    it('Asynchronous test example - plain Promise', () => {
+    it('Asynchronous test example - plain Promise', fakeAsync(() => {
         let test = false;
 
         console.log('Creating promise');
@@ -44,6 +44,8 @@ fdescribe('Async Testing Examples', () => {
         Promise.resolve().then(() => {
 
             console.log('Promise first then() evaluated successfully');
+
+            test = true;
 
             return Promise.resolve();
         })
@@ -55,8 +57,10 @@ fdescribe('Async Testing Examples', () => {
 
             });
 
+        flushMicrotasks();
+
         console.log('Running test assertions');
 
         expect(test).toBeTruthy();
-    });
+    }));
 });
