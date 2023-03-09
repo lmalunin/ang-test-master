@@ -41,11 +41,6 @@ fdescribe('Async Testing Examples', () => {
 
         console.log('Creating promise');
 
-        setTimeout(() => {
-            console.log('setTimeout() callback triggered');
-            test = true;
-        });
-
         Promise.resolve().then(() => {
 
             console.log('Promise first then() evaluated successfully');
@@ -61,7 +56,7 @@ fdescribe('Async Testing Examples', () => {
             });
 
         console.log('Running test assertions');
-        
+
         expect(test).toBeTruthy();
     });
 });
