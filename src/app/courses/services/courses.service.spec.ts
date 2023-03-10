@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { COURSES } from "../../../../server/db-data";
 import { CoursesService } from "./courses.service";
 
-describe('CoursesService', () => {
+fdescribe('CoursesService', () => {
 
     let coursesService: CoursesService, httpTestingController: HttpTestingController;
 
@@ -32,4 +32,19 @@ describe('CoursesService', () => {
         expect(req.request.method).toEqual('GET');
         req.flush({ payload: Object.values(COURSES) });
     });
+
+    it('should find course by id', () => {
+        coursesService.findCourseById(12).subscribe(course => {
+            expect(course).toBeTruthy('No course returned');
+            expect(course.id).toBe(12, 'incorrect number of course');
+        });
+
+        const req = httpTestingController.expectOne('/api/courses/12');
+        expect(req.request.method).toEqual('GET');
+        req.flush(COURSES[12]);
+    });
+
+    afterEach(() => {
+        httpTestingController.verify();
+    })
 });
